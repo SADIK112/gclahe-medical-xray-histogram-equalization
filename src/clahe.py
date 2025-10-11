@@ -101,8 +101,9 @@ if __name__ == "__main__":
     input_image_path = f"{INPUT_DIR}/x-ray-1.jpg"
     output_image_path = "x-ray-1-output.jpg"
 
+    clahe = CLAHE()
     image = load_image(input_image_path)
-    enhanced_image = apply_clahe(image)
+    enhanced_image = clahe.apply(image)
 
     save_image(enhanced_image, output_image_path, OUTPUT_DIR)
     files = os.listdir(PLOT_DIR)
