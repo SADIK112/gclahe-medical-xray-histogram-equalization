@@ -1,13 +1,9 @@
 import numpy as np
-import cv2
 import os
-import sys
-from pathlib import Path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from utils import validate_image, ensure_grayscale
+from .utils import validate_image, ensure_grayscale
 from config import HISTOGRAM_SIZE, HISTOGRAM_RANGE
-from visualize import plot_histogram
+# from .visualize import plot_histogram
 
 def global_histogram_equalization(image: np.ndarray) -> np.ndarray:
     """
@@ -74,15 +70,18 @@ if __name__ == "__main__":
     from config import INPUT_DIR, OUTPUT_DIR, PLOT_DIR
     from utils import load_image, save_image
 
+    files = os.listdir(PLOT_DIR)
+    image_files = [f for f in files if f.lower().endswith(('.jpg'))]
+
     input_image_path = f"{INPUT_DIR}/x-ray-1.jpg"
-    output_image_path = "x-ray-1-output.jpg"
+    # output_image_path = "x-ray-1-output.jpg"
+    output_image_path = f"x-ray-ghe-{len(image_files) + 1}.jpg"
 
     ghe = GHE()
     image = load_image(input_image_path)
     enhanced_image = ghe.apply(image)
 
     save_image(enhanced_image, output_image_path, OUTPUT_DIR)
-    files = os.listdir(PLOT_DIR)
-    image_files = [f for f in files if f.lower().endswith(('.jpg'))]
+
     save_file_name = f"x-ray-ghe-hist_{len(image_files) + 1}"
-    plot_histogram(image, enhanced_image, PLOT_DIR, save_file_name)
+    # plot_histogram(image, enhanced_image, PLOT_DIR, save_file_name)

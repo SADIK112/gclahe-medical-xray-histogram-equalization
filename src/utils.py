@@ -1,7 +1,6 @@
 import os
 import cv2
 import numpy as np
-
 from config import OUTPUT_DIR
 
 def load_image(file_path: str, grayscale: bool = True) -> np.ndarray:
